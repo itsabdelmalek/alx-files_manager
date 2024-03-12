@@ -6,23 +6,23 @@ class AppController {
    * should return if Redis is alive and if the DB is alive too
    */
   static getStatus(request, response) {
-    const status = {
+    response.statusCode = 200;
+    response.send({
       redis: redisClient.isAlive(),
       db: dbClient.isAlive(),
-    };
-    response.status(200).send(status);
+    });
   }
 
   /**
    * should return the number of users and files in DB
    */
   static async getStats(request, response) {
-    const stats = {
+    response.statusCode = 200;
+    response.send({
       users: await dbClient.nbUsers(),
       files: await dbClient.nbFiles(),
-    };
-    response.status(200).send(stats);
+    });
   }
 }
 
-module.exports = AppController;
+export default AppController;
